@@ -9,15 +9,20 @@
 using namespace std;
 
 int main() {
+    int k;
     list l;
     l.insertFirst(1, 'A');
     l.insertAfter(2, 'B');
     l.insertAfter(3, 'C');
     l.insertEnd(4, 'D');
 
-    cout << l.search(3) << endl;
-    cout << l.search(5) << endl;
+    cout << "Search for key : ";
+    cin >> k;
+    cout << (l.search(k) ? "Found" : "Not Found") << endl;
+    cout << "---- End Search ----" << endl;
 
+
+    cout << "The Liked List Data (traverse): " << endl;
     l.traverse();
 
     return 0;
