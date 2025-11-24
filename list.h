@@ -1,6 +1,3 @@
-#ifndef LIST_H
-#define LIST_H
-
 class list {
     class node {
         public:
@@ -37,5 +34,3 @@ class list {
         bool search(int);
         void traverse();
 };
-
-#endif
