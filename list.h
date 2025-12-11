@@ -13,24 +13,30 @@ class list {
         ~list();
         bool isListEmpty() const;
         bool curIsEmpty() const;
-        void toFirst();
         bool atFirst() const;
-        void advance();
-        void toEnd();
         bool atEnd() const;
-        int listSize();
-        void updateData(char);
-        void updateKey(int);
-        char retieveDate();
-        void retieveDate(char &);
-        void insertFirst(int, char);
-        void insertAfter(int, char);
-        void insertBefore(int, char);
-        void insertEnd(int, char);
+
+        void advance();
+        void toFirst();
+        void toEnd();
+
+        int listSize() const;
+        void updateData(const char &);
+        void updateKey(const int &);
+        void retrieveData(char &) const;
+        void retrieveKey(int &) const;
+
+        void insertFirst(const int &, const char &);
+        void insertAfter(const int &, const char &);
+        void insertBefore(const int &, const char &);
+        void insertEnd(const int &, const char &);
+
         void deleteNode();
         void deleteFirst();
         void deleteEnd();
-        void makeListEmplt();
+        void makeListEmpty();
+        
         bool search(int);
+	    void orderInsert(const char &, const int & );
         void traverse();
 };

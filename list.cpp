@@ -1,14 +1,14 @@
 #include <iostream>
-#include <cstddef>
 #include "list.h"
 using namespace std;
+using std::string;
 
 list::list(){
     head = cursor = prev = NULL;
 }
 
 list::~list(){
-    makeListEmplt();
+    makeListEmpty();
 }
 
 bool list::isListEmpty() const{
@@ -19,28 +19,8 @@ bool list::curIsEmpty() const{
     return (cursor == NULL);
 }
 
-void list::toFirst(){
-    cursor = head;
-}
-
 bool list::atFirst() const{
     return (cursor == head);
-}
-
-void list::advance(){
-    if(!curIsEmpty()) {
-        prev = cursor;
-        cursor = cursor->next;
-    }
-}
-
-void list::toEnd(){
-    if(!isListEmpty()){
-        toFirst();
-        while(cursor->next != NULL){
-            advance();
-        }
-    }
 }
 
 bool list::atEnd() const{
@@ -55,7 +35,27 @@ bool list::atEnd() const{
     }
 }
 
-int list::listSize(){
+void list::advance(){
+    if(!curIsEmpty()) {
+        prev = cursor;
+        cursor = cursor->next;
+    }
+}
+
+void list::toFirst(){
+    cursor = head;
+}
+
+void list::toEnd(){
+    if(!isListEmpty()){
+        toFirst();
+        while(cursor->next != NULL){
+            advance();
+        }
+    }
+}
+
+int list::listSize() const{
     node* p;
     int s = 0;
     if(!isListEmpty()) {
@@ -69,23 +69,23 @@ int list::listSize(){
     return s;
 }
 
-void list::updateData(char d){
+void list::updateData(const char &d){
     cursor->data = d;
 }
 
-void list::updateKey(int k){
+void list::updateKey(const int &k){
     cursor->key = k;
 }
 
-char list::retieveDate(){
-    return cursor->data;
+void list::retrieveData(char &d) const{
+    d = cursor->data;
 }
 
-void list::retieveDate(char &x){
-    x = cursor->data;
+void list::retrieveKey(int &k) const{
+    k = cursor->key;
 }
 
-void list::insertFirst(int k, char d){
+void list::insertFirst(const int &k, const char &d){
     node* p = new node;
     p->key = k;
     p->data = d;
@@ -95,7 +95,7 @@ void list::insertFirst(int k, char d){
     prev = NULL;
 }
 
-void list::insertAfter(int k, char d){
+void list::insertAfter(const int &k, const char &d){
     node* p = new node;
     p->key = k;
     p->data = d;
@@ -105,7 +105,7 @@ void list::insertAfter(int k, char d){
     cursor = p;
 }
 
-void list::insertBefore(int k, char d){
+void list::insertBefore(const int &k, const char &d){
     node* p = new node;
     p->key = k;
     p->data = d;
@@ -114,7 +114,7 @@ void list::insertBefore(int k, char d){
     cursor = p;
 }
 
-void list::insertEnd(int k, char d){
+void list::insertEnd(const int &k, const char &d){
     if(isListEmpty())
         insertFirst(k, d);
     else { 
@@ -158,7 +158,7 @@ void list::deleteEnd(){
     }
 }
 
-void list::makeListEmplt(){
+void list::makeListEmpty(){
     toFirst();
     while(!isListEmpty())
         deleteNode();
@@ -187,6 +187,10 @@ bool list::search(int k){
             advance();
     }
     return found;
+}
+
+bool list::orderInsert(const char &d, const int &k){
+    // Insert in ascending order based on key
 }
 
 void list::traverse(){
