@@ -22,7 +22,7 @@ int main() {
     cout << "---- End Search ----" << endl;
 
 
-    cout << "The Liked List Data (traverse): " << endl;
+    cout << "The Linked List Data (traverse): " << endl;
     l.traverse();
 
     return 0;
