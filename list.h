@@ -11,7 +11,7 @@ class list {
     public: 
         list();
         ~list();
-        bool isListEmpty() const;
+        bool listIsEmpty() const;
         bool curIsEmpty() const;
         bool atFirst() const;
         bool atEnd() const;
@@ -23,6 +23,7 @@ class list {
         int listSize() const;
         void updateData(const char &);
         void updateKey(const int &);
+        void retrieveData(char &, int &) const;
         void retrieveData(char &) const;
         void retrieveKey(int &) const;
 

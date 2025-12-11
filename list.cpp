@@ -11,7 +11,7 @@ list::~list(){
     makeListEmpty();
 }
 
-bool list::isListEmpty() const{
+bool list::listIsEmpty() const{
     return (head == NULL);
 }
 
@@ -24,15 +24,9 @@ bool list::atFirst() const{
 }
 
 bool list::atEnd() const{
-    if(isListEmpty()) {
-        if(curIsEmpty())
-            return true;
-        else 
-            return false;
-    }
-    else {
-        return (cursor != NULL && cursor->next == NULL);
-    }
+    if(listIsEmpty())       return true;
+    else if(curIsEmpty())   return false;
+    else                    return (cursor->next == NULL);
 }
 
 void list::advance(){
@@ -44,29 +38,27 @@ void list::advance(){
 
 void list::toFirst(){
     cursor = head;
+    prev = NULL;
 }
 
 void list::toEnd(){
-    if(!isListEmpty()){
-        toFirst();
-        while(cursor->next != NULL){
+    toFirst();
+    if (!listIsEmpty())
+        while (cursor->next != NULL)
             advance();
-        }
-    }
 }
 
 int list::listSize() const{
     node* p;
-    int s = 0;
-    if(!isListEmpty()) {
-        toFirst();
-        p = cursor;
-        while(p != NULL) {
-            s++;
-            p = p->next;
-        }
+    int count = 0;
+
+    p = head;
+    while(p != NULL) {
+        count++;
+        p = p->next;
     }
-    return s;
+
+    return count;
 }
 
 void list::updateData(const char &d){
@@ -75,6 +67,11 @@ void list::updateData(const char &d){
 
 void list::updateKey(const int &k){
     cursor->key = k;
+}
+
+void list::retrieveData(char &d, int &k) const{
+    d = cursor->data;
+    k = cursor->key;
 }
 
 void list::retrieveData(char &d) const{
@@ -106,16 +103,23 @@ void list::insertAfter(const int &k, const char &d){
 }
 
 void list::insertBefore(const int &k, const char &d){
-    node* p = new node;
-    p->key = k;
-    p->data = d;
-    p->next = cursor;
-    prev->next = p;
-    cursor = p;
+	if(atFirst()) {
+		insertFirst(k,d);
+	}
+    else {
+        node* p = new node;
+        p->key = k;
+        p->data = d;
+
+        p->next = cursor;
+        prev->next = p;
+        cursor = p;
+    }
+    
 }
 
 void list::insertEnd(const int &k, const char &d){
-    if(isListEmpty())
+    if(listIsEmpty())
         insertFirst(k, d);
     else { 
         toEnd();
@@ -124,18 +128,17 @@ void list::insertEnd(const int &k, const char &d){
 }
 
 void list::deleteNode(){
-    node * p;
-    p = cursor;
-
     if(!curIsEmpty()) {
-        if(atFirst()) {
-            cursor = cursor->next;
+        node * p;
+        p = cursor;
+        cursor = cursor->next;
+
+        if(atFirst())
             head = cursor;
-            delete p;
-        } else {
-            cursor = cursor->next;
+        else
             prev->next = cursor;
-        }
+
+        delete p;
     }    
 }
 
@@ -152,7 +155,7 @@ void list::deleteFirst(){
 }
 
 void list::deleteEnd(){
-    if(!isListEmpty()) {
+    if(!listIsEmpty()) {
         toEnd();
         deleteNode();
     }
@@ -160,10 +163,10 @@ void list::deleteEnd(){
 
 void list::makeListEmpty(){
     toFirst();
-    while(!isListEmpty())
+    while(!listIsEmpty())
         deleteNode();
 
-    // if(!isListEmpty()) {
+    // if(!listIsEmpty()) {
     //     toFirst();
     //     while(cursor != NULL) {
     //         node* p;
