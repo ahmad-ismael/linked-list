@@ -143,15 +143,10 @@ void list::deleteNode(){
 }
 
 void list::deleteFirst(){
-    node * p;
-    p = head;
-
-    toFirst();
-    
-    head = head->next;
-    cursor = head;
-    prev = NULL;
-    delete p;
+	if(! listIsEmpty()) {
+        toFirst(); 
+        deleteNode();
+    }
 }
 
 void list::deleteEnd(){
@@ -165,40 +160,44 @@ void list::makeListEmpty(){
     toFirst();
     while(!listIsEmpty())
         deleteNode();
-
-    // if(!listIsEmpty()) {
-    //     toFirst();
-    //     while(cursor != NULL) {
-    //         node* p;
-    //         p = cursor;
-    //         cursor = cursor->next;
-    //         delete p;
-    //     }
-    // }
-    // head = NULL;
-    // prev = NULL;
 }
 
 bool list::search(int k){
     bool found = false;
     toFirst();
     while(!found && !curIsEmpty()) {
-        if (k == cursor->key){
+        if (k == cursor->key)
             found = true;
-        }
         else
             advance();
     }
     return found;
 }
 
-bool list::orderInsert(const char &d, const int &k){
-    // Insert in ascending order based on key
+void list::orderInsert(const int &k, const char &d){
+    toFirst();
+    while(!curIsEmpty() && (k > cursor->key))
+        advance();
+        
+    if(curIsEmpty())
+        insertEnd(k,d);
+    else
+        insertBefore(k,d);
 }
+
+// void List::orderInsert(const char &d, const int &k)
+// {
+// 	toFirst();
+// 	while ((cursor != NULL) && (k > cursor->key))
+// 		advance();
+
+// 	if (atFirst())  insertFirst(k,d);
+// 	else insertBefore(k,d);
+// }
 
 void list::traverse(){
     toFirst();
-    while(cursor != NULL) {
+    while(! curIsEmpty()) {
         cout << cursor->key << " - " << cursor->data << endl;
         advance();
     }

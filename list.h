@@ -38,6 +38,6 @@ class list {
         void makeListEmpty();
         
         bool search(int);
-	    void orderInsert(const char &, const int & );
+	    void orderInsert(const int &, const char &);
         void traverse();
 };
