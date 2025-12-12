@@ -7,6 +7,7 @@ class list {
     };
 
     node *head, *cursor, *prev; 
+    int listSize2(node *);
 
     public: 
         list();
@@ -40,6 +41,9 @@ class list {
         bool search(int);
 	    void orderInsert(const int &, const char &);
         void traverse();
+
+        // exrcise
+        int recursive_list_size();
 
         void log(const std::string&) const;
 };

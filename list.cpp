@@ -131,12 +131,14 @@ void list::deleteNode(){
     if(!curIsEmpty()) {
         node * p;
         p = cursor;
-        cursor = cursor->next;
 
-        if(atFirst())
+        if (atFirst()) {
+            cursor = cursor->next;
             head = cursor;
-        else
+        } else {
+            cursor = cursor->next;
             prev->next = cursor;
+        }
 
         delete p;
     }    
@@ -196,10 +198,8 @@ void list::orderInsert(const int &k, const char &d){
 // }
 
 void list::traverse(){
-    log("TRAVERSE");
     toFirst();
     while(! curIsEmpty()) {
-        log("TRAVERSE");
         cout << cursor->key << " - " << cursor->data << endl;
         advance();
     }
@@ -207,4 +207,19 @@ void list::traverse(){
 
 void list::log(const std::string &name) const {
     cout << name << " LOG ===> HEAD=" << head << ", CURSOR=" << cursor << ", PREV=" << prev << endl;
+}
+
+// exrcise
+int list::recursive_list_size() {
+    return listSize2(head);
+}
+
+int list::listSize2(node * h) {
+    if(h == NULL) {
+        return 0;
+    }
+    else {
+        return 1 + listSize2(h->next);
+        advance();
+    }
 }

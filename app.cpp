@@ -42,6 +42,7 @@ void split(list &l,list &l1,list &l2) {
         l2.makeListEmpty();
         l.toFirst();
         while(! l.curIsEmpty()) {
+            l.log("SPLIT");
             l.retrieveKey(k);
             l.retrieveData(d);
             if(k >= 0) l1.insertEnd(k,d);
@@ -70,10 +71,16 @@ int main() {
     cout << "Zeros count: " << countZeros(l) << endl;
     cout << "Data sum: " << sumData(l) << endl;
 
+    cout << "############## LIST SIZE:" << endl;
+    cout << l.listSize() << endl;
+    cout << "############## LIST SIZE BY RECURSIVE:" << endl;
+    cout << l.recursive_list_size() << endl;
+
+
     cout << "############## SPLITING THE LIST" << endl;
     split(l,l1,l2);
-    //cout << "L data after split:" << endl;
-    //l.traverse();
+    cout << "L data after split:" << endl;
+    l.traverse();
     cout << "L1 data after split:" << endl;
     l1.traverse();
     cout << "L2 data after split:" << endl;
