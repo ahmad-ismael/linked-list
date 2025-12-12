@@ -196,9 +196,15 @@ void list::orderInsert(const int &k, const char &d){
 // }
 
 void list::traverse(){
+    log("TRAVERSE");
     toFirst();
     while(! curIsEmpty()) {
+        log("TRAVERSE");
         cout << cursor->key << " - " << cursor->data << endl;
         advance();
     }
+}
+
+void list::log(const std::string &name) const {
+    cout << name << " LOG ===> HEAD=" << head << ", CURSOR=" << cursor << ", PREV=" << prev << endl;
 }

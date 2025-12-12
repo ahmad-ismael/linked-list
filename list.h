@@ -40,4 +40,6 @@ class list {
         bool search(int);
 	    void orderInsert(const int &, const char &);
         void traverse();
+
+        void log(const std::string&) const;
 };
