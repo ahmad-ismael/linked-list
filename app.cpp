@@ -21,6 +21,19 @@ int countZeros(list &l) {
     return count;
 }
 
+int countEven(list &l) {
+    int count = 0, k;
+    if(! l.listIsEmpty()) {
+        l.toFirst();
+        while(! l.curIsEmpty()) {
+            l.retrieveKey(k);
+            if(k%2 == 0) count++;
+            l.advance();
+        }
+    }
+    return count;
+}
+
 int sumData(list &l) {
     int sum = 0, k;
     if(! l.listIsEmpty()) {
@@ -41,8 +54,8 @@ void split(list &l,list &l1,list &l2) {
         l1.makeListEmpty();
         l2.makeListEmpty();
         l.toFirst();
+        l.log("SPLIT");
         while(! l.curIsEmpty()) {
-            l.log("SPLIT");
             l.retrieveKey(k);
             l.retrieveData(d);
             if(k >= 0) l1.insertEnd(k,d);
@@ -54,8 +67,31 @@ void split(list &l,list &l1,list &l2) {
     }
 }
 
+void append(list &l,list &l1,list &l2) {
+    int k;
+    char d;
+
+    l.makeListEmpty();
+
+    l1.toFirst();
+    while(! l1.curIsEmpty()) {
+        l1.retrieveKey(k);
+        l1.retrieveData(d);
+        l.insertEnd(k,d);
+        l1.advance();
+    }
+
+    l2.toFirst();
+    while(! l2.curIsEmpty()) {
+        l2.retrieveKey(k);
+        l2.retrieveData(d);
+        l.insertEnd(k,d);
+        l2.advance();
+    }
+}
+
 int main() {
-    list l, l1, l2;
+    list l, lp, ln;
     l.orderInsert(0, 'A');
     l.orderInsert(20, 'B');
     l.orderInsert(-2, 'C');
@@ -65,27 +101,40 @@ int main() {
     l.orderInsert(-10, 'G');
     l.orderInsert(-1, 'H');
 
+    cout << "LIST SIZE: " << l.listSize() << endl;
+    cout << "LIST SIZE (recursive): " << l.recursive_list_size() << endl;
+    cout << "Zeros count: " << countZeros(l) << endl;
+    cout << "Even count: " << countEven(l) << endl;
+    cout << "Data sum: " << sumData(l) << endl;
+    cout << endl;
+
     cout << "The Linked List Data (traverse): " << endl;
     l.traverse();
-
-    cout << "Zeros count: " << countZeros(l) << endl;
-    cout << "Data sum: " << sumData(l) << endl;
-
-    cout << "############## LIST SIZE:" << endl;
-    cout << l.listSize() << endl;
-    cout << "############## LIST SIZE BY RECURSIVE:" << endl;
-    cout << l.recursive_list_size() << endl;
-
-
-    cout << "############## SPLITING THE LIST" << endl;
-    split(l,l1,l2);
+    cout << "The Linked List Data (recursive) ASC: " << endl;
+    l.displayList(false);
+    cout << "The Linked List Data (recursive) DESC: " << endl;
+    l.displayList(true);
+    cout << endl;
+    
+    cout << "############## SPLIT" << endl;
+    split(l,lp,ln);
     cout << "L data after split:" << endl;
     l.traverse();
-    cout << "L1 data after split:" << endl;
-    l1.traverse();
-    cout << "L2 data after split:" << endl;
-    l2.traverse();
+    cout << "LP data after split:" << endl;
+    lp.traverse();
+    cout << "LN data after split:" << endl;
+    ln.traverse();
+    cout << endl;
     
+    cout << "############## APPEND" << endl;
+    append(l,lp,ln);
+    cout << "L data after append:" << endl;
+    l.traverse();
+    cout << "LP data after append:" << endl;
+    lp.traverse();
+    cout << "LN data after append:" << endl;
+    ln.traverse();
+    cout << endl;
 
     return 0;
 }

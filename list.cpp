@@ -198,10 +198,16 @@ void list::orderInsert(const int &k, const char &d){
 // }
 
 void list::traverse(){
-    toFirst();
-    while(! curIsEmpty()) {
-        cout << cursor->key << " - " << cursor->data << endl;
-        advance();
+
+    if(listIsEmpty())
+        cout << "List is empty" << endl;
+
+    else {
+        toFirst();
+        while(! curIsEmpty()) {
+            cout << cursor->key << " - " << cursor->data << endl;
+            advance();
+        }
     }
 }
 
@@ -221,5 +227,24 @@ int list::listSize2(node * h) {
     else {
         return 1 + listSize2(h->next);
         advance();
+    }
+}
+
+void list::displayList(bool desc) {
+    display(head, desc);
+}
+
+void list::display(node * p, bool desc) {
+    if (p == NULL)
+        return;
+    else {
+        if(desc) {
+            display(p->next, desc);
+            cout << "key=" << p->key << "\t data=" << p->data << endl;
+        }
+        else {
+            cout << "key=" << p->key << "\t data=" << p->data << endl;
+            display(p->next, desc);
+        }
     }
 }

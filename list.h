@@ -8,6 +8,7 @@ class list {
 
     node *head, *cursor, *prev; 
     int listSize2(node *);
+    void display(node *, bool);
 
     public: 
         list();
@@ -32,6 +33,7 @@ class list {
         void insertAfter(const int &, const char &);
         void insertBefore(const int &, const char &);
         void insertEnd(const int &, const char &);
+	    void orderInsert(const int &, const char &);
 
         void deleteNode();
         void deleteFirst();
@@ -39,11 +41,11 @@ class list {
         void makeListEmpty();
         
         bool search(int);
-	    void orderInsert(const int &, const char &);
         void traverse();
+
+        void log(const std::string&) const;
 
         // exrcise
         int recursive_list_size();
-
-        void log(const std::string&) const;
+        void displayList(bool);
 };
